@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftPlc", "SoftPlc\SoftPlc.csproj", "{D9E64654-5004-49EE-8AA9-1CAB70C480C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{CE2A7042-F053-472A-B9E5-0431D9C3F130}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows-nanoserver", "windows-nanoserver", "{40B3E86C-BB25-4635-BE89-243C9615FEB2}"
+	ProjectSection(SolutionItems) = preProject
+		Docker\windows-nano\Dockerfile = Docker\windows-nano\Dockerfile
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9E64654-5004-49EE-8AA9-1CAB70C480C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9E64654-5004-49EE-8AA9-1CAB70C480C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9E64654-5004-49EE-8AA9-1CAB70C480C7}.Debug|x64.ActiveCfg = Debug|x64
+		{D9E64654-5004-49EE-8AA9-1CAB70C480C7}.Debug|x64.Build.0 = Debug|x64
+		{D9E64654-5004-49EE-8AA9-1CAB70C480C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9E64654-5004-49EE-8AA9-1CAB70C480C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9E64654-5004-49EE-8AA9-1CAB70C480C7}.Release|x64.ActiveCfg = Release|x64
+		{D9E64654-5004-49EE-8AA9-1CAB70C480C7}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{40B3E86C-BB25-4635-BE89-243C9615FEB2} = {CE2A7042-F053-472A-B9E5-0431D9C3F130}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE64FF91-54DD-44F3-92E1-36CB8F02221B}
+	EndGlobalSection
+EndGlobal
