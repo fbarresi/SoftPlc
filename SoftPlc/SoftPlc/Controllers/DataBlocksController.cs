@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SoftPlc.Interfaces;
+using SoftPlc.Models;
 
 namespace SoftPlc.Controllers
 {
@@ -19,34 +20,37 @@ namespace SoftPlc.Controllers
 
         // GET api/datablocks
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<DatablockDescription> Get()
         {
-            return new string[] { "value1", "value2" };
+	        return plcService.GetDatablocksInfo();
         }
 
         // GET api/datablocks/5
         [HttpGet("{id}")]
-        public byte[] Get(int id)
+        public DatablockDescription Get(int id)
         {
-            return new byte[10];
+	        return plcService.GetDatablock(id);
         }
 
         // POST api/datablocks
         [HttpPost]
-        public void Post([FromBody]string number, [FromBody]int size, [FromBody]byte[] data)
+        public void Post(int id, int size)
         {
+	        plcService.AddDatablock(id, size);
         }
 
-        // PUT api/datablocks/5
-        [HttpPut("{id}")]
+		// PUT api/datablocks/5
+		[HttpPut("{id}")]
         public void Put(int id, [FromBody]byte[] data)
         {
+	        plcService.UpdateDatablockData(id, data);
         }
 
         // DELETE api/datablocks/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+	        plcService.RemoveDatablock(id);
         }
     }
 }
