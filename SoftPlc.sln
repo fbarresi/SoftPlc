@@ -5,13 +5,6 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftPlc", "SoftPlc\SoftPlc.csproj", "{D9E64654-5004-49EE-8AA9-1CAB70C480C7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{CE2A7042-F053-472A-B9E5-0431D9C3F130}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows-nanoserver", "windows-nanoserver", "{40B3E86C-BB25-4635-BE89-243C9615FEB2}"
-	ProjectSection(SolutionItems) = preProject
-		Docker\windows-nano\Dockerfile = Docker\windows-nano\Dockerfile
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

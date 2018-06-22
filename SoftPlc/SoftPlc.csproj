@@ -14,6 +14,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="release\**" />
+    <Content Remove="release\**" />
+    <EmbeddedResource Remove="release\**" />
+    <None Remove="release\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
