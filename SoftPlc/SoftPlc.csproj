@@ -31,6 +31,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <CoreCompileCache Include="$(DefineConstants)" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="release\**" />
     <Content Remove="release\**" />
     <EmbeddedResource Remove="release\**" />

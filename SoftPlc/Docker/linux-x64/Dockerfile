@@ -4,7 +4,6 @@ ARG EXE_DIR=.
 
 WORKDIR /app
 
-COPY $EXE_DIR/release-linux ./
+COPY $EXE_DIR ./
 
-CMD ["ls"]
 CMD ["dotnet", "SoftPlc.dll"]
