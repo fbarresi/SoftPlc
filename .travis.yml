@@ -12,7 +12,7 @@ before_install:
   - cd SoftPlc
 script:
   - dotnet publish -c release -o release
-  - cp ./Docker/linux-x66/Dockerfile ./release/Dockerfile
+  - cp ./Docker/linux-x64/Dockerfile ./release/Dockerfile
   - cd release
   - docker build -t fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux .
   - docker run --name softplc fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux
