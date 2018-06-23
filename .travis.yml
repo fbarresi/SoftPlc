@@ -3,7 +3,6 @@ sudo: required
 dotnet: 2.0.0
 os:  
   - linux
-  - windows
 branches:  
   only:
     - master
@@ -13,18 +12,10 @@ before_install:
   - cd SoftPlc
 script:
   - dotnet publish -c release -o release
-  - if ["$TRAVIS_OS" == "linux" ]; then
-    docker build -f .\Docker\linux-x64\Dockerfile -t fbarresi/softplc:latest-linux .
-    fi
-  - if ["$TRAVIS_OS" == "windows" ]; then
-    docker build -f .\Docker\windows-nano\Dockerfile -t fbarresi/softplc:latest-win .
-    fi
+  - cd release
+#  - dotnet SoftPlc.dll
+  - docker build -f .\Docker\linux-x64\Dockerfile -t fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux .
+  - docker run --name softplc fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_OS" == "linux"]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push fbarresi/softplc:latest-linux;
-    fi
-  - if [ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_OS" == "windows"]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push fbarresi/softplc:latest-win;
-    fi
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker push fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux;
