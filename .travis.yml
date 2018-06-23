@@ -14,7 +14,7 @@ script:
   - dotnet publish -c release -o release
 #  - cd release
 #  - dotnet SoftPlc.dll
-  - docker build -f ./Docker/linux-x64/Dockerfile -t fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux ./release/
+  - docker build -f $(pwd)/Docker/linux-x64/Dockerfile -t fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux $(pwd)/release/
   - docker run --name softplc fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
