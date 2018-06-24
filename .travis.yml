@@ -15,8 +15,8 @@ script:
   - cp ./native/linux/libsnap7.so ./release/libsnap7.so
   - cp ./Docker/linux-x64/Dockerfile ./release/Dockerfile
   - cd release
-  - docker build -t fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux .
+  - docker build -t fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-linux .
 #  - docker run --name softplc fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - docker push fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux;
+  - docker push fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-linux;
