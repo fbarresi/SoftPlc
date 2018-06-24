@@ -7,11 +7,7 @@ namespace SoftPlc
 {
 	public class S7Consts
 	{
-        #if __MonoCS__
-		public const string Snap7LibName = "libsnap7.so";
-        #else
-		public const string Snap7LibName = "snap7x64.dll";
-        #endif
+		public const string Snap7LibName = "snap7";
 		//------------------------------------------------------------------------------
 		//                                  PARAMS LIST            
 		//------------------------------------------------------------------------------

@@ -12,6 +12,7 @@ before_install:
   - cd SoftPlc
 script:
   - dotnet publish -c release -o release
+  - cp ./native/linux/libsnap7.so ./release/libsnap7.so
   - cp ./Docker/linux-x64/Dockerfile ./release/Dockerfile
   - cd release
   - docker build -t fbarresi/softplc:1.0beta$TRAVIS_BUILD_NUMBER-linux .
