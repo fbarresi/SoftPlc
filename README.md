@@ -1,4 +1,4 @@
-# SoftPlc
+# SoftPlc [![Build Status](https://travis-ci.org/fbarresi/SoftPlc.svg?branch=master)](https://travis-ci.org/fbarresi/SoftPlc)
 Software PLC controlled over Web API
 
 **How often did you needed a PLC to test somthing, but you had none?**
