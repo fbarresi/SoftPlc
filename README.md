@@ -8,12 +8,13 @@ This project aim to **end you pain** with test against PLC!
 ## How does it works
 
 ### Use it from source code 
-Checkout and start the software (an ASP.NET core 2 application)
+Checkout and start the software (don't forget to copy the native library you need)
 
 ```shell
 cd SoftPlc
 dotnet restore
 dotnet build
+cp native\win\snap7.dll bin\Debug\netcoreapp2.0\snap7.dll
 dotnet bin\Debug\netcoreapp2.0\SoftPlc.dll
 ```
 
@@ -21,8 +22,8 @@ dotnet bin\Debug\netcoreapp2.0\SoftPlc.dll
 Pull the actual docker image for your platform [see available tags](https://hub.docker.com/r/fbarresi/softplc/tags/) and run it with the correct port binding
 
 ```docker
-docker pull fbarresi/softplc:1.0-linux
-docker run -p 8080:80 -p 102:102 --name softplc fbarresi/softplc:1.0-linux
+docker pull fbarresi/softplc:latest-linux
+docker run -p 8080:80 -p 102:102 --name softplc fbarresi/softplc:latest-linux
 ```
 
 Now you have:
