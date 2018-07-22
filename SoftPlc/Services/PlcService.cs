@@ -56,7 +56,7 @@ namespace SoftPlc.Services
 			DatablockDescription db;
 			var found = datablocks.TryGetValue(id, out db);
 			if (found) return db;
-			throw new Exception("Datablock not found");
+			throw new InvalidOperationException("Datablock not found");
 		}
 
 		public void AddDatablock(int id, int size, byte[] data)
@@ -68,9 +68,9 @@ namespace SoftPlc.Services
 		public void AddDatablock(int id, int size)
 		{
 			CheckServerRunning();
-			if (id < 1) throw new Exception("Invalid id for datablock");
-			if (size < 1) throw new Exception("Invalid size for datablock");
-			if (datablocks.ContainsKey(id)) throw new Exception($"A Datablock with id = {id} already exists");
+			if (id < 1) throw new ArgumentException("Invalid id for datablock - id must be > 1", nameof(id));
+			if (size < 1) throw new ArgumentException("Invalid size for datablock - size must be > 1", nameof(size));
+			if (datablocks.ContainsKey(id)) throw new InvalidOperationException($"A Datablock with id = {id} already exists");
 			var db = new DatablockDescription(id, size);
 			datablocks[id] = db;
 			server.RegisterArea(S7Server.srvAreaDB, id, ref datablocks[id].Data, datablocks[id].Data.Length);
@@ -78,7 +78,7 @@ namespace SoftPlc.Services
 
 		public void UpdateDatablockData(int id, byte[] data)
 		{
-			if (data != null && data.Length > datablocks[id].Data.Length) throw new Exception("Too much data as expected");
+			if (data != null && data.Length > datablocks[id].Data.Length) throw new ArgumentException("Too much data as expected", nameof(data));
 			if(data != null)
 				Array.Copy(data, datablocks[id].Data, data.Length);
 		}
@@ -86,6 +86,7 @@ namespace SoftPlc.Services
 		public void RemoveDatablock(int id)
 		{
 			server.UnregisterArea(S7Server.srvAreaDB, id);
+			datablocks.Remove(id);
 		}
 	}
 }
