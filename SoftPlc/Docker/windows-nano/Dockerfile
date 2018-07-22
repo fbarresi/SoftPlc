@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1.1-aspnetcore-runtime-nanoserver-1803
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
 
 ARG EXE_DIR=.
 
