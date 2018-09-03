@@ -7,3 +7,7 @@ WORKDIR /app
 COPY $EXE_DIR ./
 
 CMD ["dotnet", "SoftPlc.dll"]
+
+EXPOSE 80/tcp
+
+EXPOSE 102/tcp

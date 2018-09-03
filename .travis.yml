@@ -15,7 +15,6 @@ install:
   - sudo apt-get install -y qemu qemu-user-static qemu-user binfmt-support
 script:
   - dotnet publish -c release -o release
-  - ls -l ./release/
   - cp ./native/linux/libsnap7.so ./release/libsnap7.so
   - cp ./Docker/linux-x64/Dockerfile ./release/Dockerfile
   - cd release
