@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SoftPlc</name>
+    </assembly>
+    <members>
+        <member name="T:SoftPlc.Controllers.DataBlocksController">
+            <inheritdoc />
+        </member>
+        <member name="M:SoftPlc.Controllers.DataBlocksController.#ctor(SoftPlc.Interfaces.IPlcService)">
+            <inheritdoc />
+        </member>
+        <member name="M:SoftPlc.Controllers.DataBlocksController.Get">
+            <summary>
+            Get the datablocks information of the current soft plc instance
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SoftPlc.Controllers.DataBlocksController.Get(System.Int32)">
+            <summary>
+            Get the actual datablock configuration
+            </summary>
+            <param name="id">The datablock id</param>
+            <returns></returns>
+        </member>
+        <member name="M:SoftPlc.Controllers.DataBlocksController.Post(System.Int32,System.Int32)">
+            <summary>
+            Create a new datablock
+            </summary>
+            <param name="id">The datablock id</param>
+            <param name="size">The datablock size</param>
+        </member>
+        <member name="M:SoftPlc.Controllers.DataBlocksController.Put(System.Int32,System.Byte[])">
+            <summary>
+            Update the content of a datablock
+            </summary>
+            <param name="id">The datablock id</param>
+            <param name="data">The datablock content in form of array of bytes</param>
+        </member>
+        <member name="M:SoftPlc.Controllers.DataBlocksController.Delete(System.Int32)">
+            <summary>
+            Delete a datablock from the current plc instance
+            </summary>
+            <param name="id">The datablock id</param>
+        </member>
+    </members>
+</doc>
