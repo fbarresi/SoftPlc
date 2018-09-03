@@ -29,6 +29,13 @@
   <Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" /> 
   </Target>
 
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish"> 
+  <ItemGroup> 
+    <DocFile Include="bin/**/**/SoftPlc.xml" /> 
+  </ItemGroup> 
+  <Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" /> 
+  </Target>
+
   <ItemGroup>
     <CoreCompileCache Include="$(DefineConstants)" />
   </ItemGroup>
