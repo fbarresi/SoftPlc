@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1.1-aspnetcore-runtime-stretch-slim-arm32v7
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-stretch-slim-arm32v7
 
 ARG EXE_DIR=.
 

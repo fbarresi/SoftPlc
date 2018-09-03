@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1.1-aspnetcore-runtime-stretch-slim
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-stretch-slim
 
 ARG EXE_DIR=.
 
