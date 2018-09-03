@@ -1,6 +1,6 @@
 language: csharp
 sudo: required
-dotnet: 2.0.0
+dotnet: 2.1.300
 os:  
   - linux
 branches:  
