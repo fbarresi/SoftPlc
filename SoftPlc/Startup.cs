@@ -28,8 +28,7 @@ namespace SoftPlc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-	        var plcService = new PlcService();
-			services.AddSingleton<IPlcService>(plcService);
+			services.AddSingleton<IPlcService, PlcService>();
 
 	        // Register the Swagger generator, defining 1 or more Swagger documents
 	        services.AddSwaggerGen(c =>
@@ -81,6 +80,9 @@ namespace SoftPlc
 	        });
 
 			app.UseMvc();
+
+			//initialize plc service on start
+			var plcService = app.ApplicationServices.GetService<IPlcService>();
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using SoftPlc.Interfaces;
 using SoftPlc.Models;
+using Microsoft.Extensions.Configuration;
+
 
 namespace SoftPlc.Services
 {
@@ -11,11 +13,21 @@ namespace SoftPlc.Services
 		private readonly S7Server server;
 		private readonly bool serverRunning;
 		private readonly Dictionary<int, DatablockDescription> datablocks = new Dictionary<int, DatablockDescription>();
-		public PlcService()
+		public PlcService(IConfiguration configuration)
 		{
 			Console.WriteLine("Initializing plc service...");
 
 			server = new S7Server();
+
+
+			if(configuration.GetChildren().Any(item => item.Key.Equals("plcPort")))
+			{	
+				UInt16 plcPort;
+				var parsed = UInt16.TryParse(configuration["plcPort"], out plcPort);
+				if(parsed)
+					server.SetParam(S7Consts.p_u16_LocalPort, ref plcPort);
+			}
+
 			var error = server.Start();
 			serverRunning = error == 0;
 			if (serverRunning) Console.WriteLine("plc server started!");
