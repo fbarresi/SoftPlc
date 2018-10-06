@@ -19,6 +19,7 @@ namespace SoftPlc.Services
 
 			server = new S7Server();
 
+			var usedPlcPort = 102;
 
 			if(configuration.GetChildren().Any(item => item.Key.Equals("plcPort")))
 			{	
@@ -26,11 +27,12 @@ namespace SoftPlc.Services
 				var parsed = UInt16.TryParse(configuration["plcPort"], out plcPort);
 				if(parsed)
 					server.SetParam(S7Consts.p_u16_LocalPort, ref plcPort);
+				usedPlcPort = plcPort;
 			}
 
 			var error = server.Start();
 			serverRunning = error == 0;
-			if (serverRunning) Console.WriteLine("plc server started!");
+			if (serverRunning) Console.WriteLine($"plc server started on port {usedPlcPort}!");
 			else Console.WriteLine($"plc server error {error}");
 		}
 

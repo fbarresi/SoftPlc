@@ -15,7 +15,7 @@ cd SoftPlc
 dotnet restore
 dotnet build
 cp native\win\snap7.dll bin\Debug\netcoreapp2.0\snap7.dll
-dotnet bin\Debug\netcoreapp2.0\SoftPlc.dll --plcPort=102
+dotnet bin\Debug\netcoreapp2.0\SoftPlc.dll --plcPort=103 --urls="http://localhost:8080/"
 ```
 
 Otherwise you can download and start the [latest release](https://github.com/fbarresi/SoftPlc/releases/latest).
