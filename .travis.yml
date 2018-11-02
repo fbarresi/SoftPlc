@@ -20,12 +20,11 @@ script:
   - cd release
   - docker build -t fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-linux .
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - rm libsnap7.so
-  - rm Dockerfile
   - cd ..
-  - cp ./native/arm/libsnap7.so ./release/libsnap7.so
-  - cp ./Docker/arm/Dockerfile ./release/Dockerfile
-  - cd release
+  - dotnet publish -c release -o release_arm -r linux-arm
+  - cp ./native/arm/libsnap7.so ./release_arm/libsnap7.so
+  - cp ./Docker/arm/Dockerfile ./release_arm/Dockerfile
+  - cd release_arm
   - docker build -t fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-arm .
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
