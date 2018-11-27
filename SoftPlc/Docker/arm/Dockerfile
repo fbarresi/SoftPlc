@@ -6,6 +6,10 @@ WORKDIR /app
 
 COPY $EXE_DIR ./
 
+VOLUME /data
+
+ENV DATA_PATH=/data
+
 CMD ["dotnet", "SoftPlc.dll"]
 
 EXPOSE 80/tcp
