@@ -1,4 +1,7 @@
-﻿namespace SoftPlc.Models
+﻿using System;
+using Newtonsoft.Json;
+
+namespace SoftPlc.Models
 {
 	public class DatablockDescription
 	{
@@ -12,5 +15,13 @@
 			Size = size;
 			Data = new byte[Size];
 		}
+
+        [JsonConstructor]public DatablockDescription(int id, int size, byte[] data)
+        {
+            Id = id;
+            Size = size;
+            Data = new byte[Size];
+			Array.Copy(data, Data, data.Length);
+        }
 	}
 }

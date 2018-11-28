@@ -4,7 +4,8 @@ using System.Linq;
 using SoftPlc.Interfaces;
 using SoftPlc.Models;
 using Microsoft.Extensions.Configuration;
-
+using System.IO;
+using Newtonsoft.Json;
 
 namespace SoftPlc.Services
 {
@@ -34,6 +35,7 @@ namespace SoftPlc.Services
 			serverRunning = error == 0;
 			if (serverRunning) Console.WriteLine($"plc server started on port {usedPlcPort}!");
 			else Console.WriteLine($"plc server error {error}");
+            //ReadDataBlocks();
 		}
 
 		private void CheckServerRunning()
@@ -41,10 +43,52 @@ namespace SoftPlc.Services
 			if(!serverRunning) throw new Exception("Plc server is not running");
 		}
 
+		private void SaveDataBlocks()
+		{
+			var settingsFile = Path.Combine(GetSaveLocation(), "datablocks.json");
+            var json = JsonConvert.SerializeObject(datablocks, Formatting.Indented);
+			File.WriteAllText(settingsFile, json);
+		}
+
+        private void ReadDataBlocks()
+        {
+            var settingsFile = Path.Combine(GetSaveLocation(), "datablocks.json");
+
+			try
+			{
+				if(File.Exists(settingsFile))
+				{
+                    var json = File.ReadAllText(Path.Combine(GetSaveLocation(),settingsFile));
+                	var retrievedDatablock = JsonConvert.DeserializeObject<Dictionary<int, DatablockDescription>>(json);
+					foreach(var item in retrievedDatablock)
+						AddDatablock(item.Key, item.Value);
+				}
+			}
+			catch(Exception e)
+			{
+                Console.WriteLine($"Error while deserializing data blocks {e.Message}");
+			}
+
+        }
+
+		private string GetSaveLocation()
+		{
+            try
+			{
+				return Environment.GetEnvironmentVariable("DATA_PATH");
+			}
+			catch(Exception e)
+			{
+                Console.WriteLine($"Error during retrieving env variable DATA_PATH {e.Message}");
+				return string.Empty;
+			}
+		}
+
 		private void ReleaseUnmanagedResources()
 		{
 			Console.WriteLine("Stopping plc server...");
 			server.Stop();
+            //SaveDataBlocks();
 		}
 
 		public void Dispose()
@@ -73,10 +117,10 @@ namespace SoftPlc.Services
 			throw new InvalidOperationException("Datablock not found");
 		}
 
-		public void AddDatablock(int id, int size, byte[] data)
+		public void AddDatablock(int id, DatablockDescription datablock)
 		{
-			AddDatablock(id, size);
-			UpdateDatablockData(id, data);
+			AddDatablock(id, datablock.Size);
+			UpdateDatablockData(id, datablock.Data);
 		}
 
 		public void AddDatablock(int id, int size)
