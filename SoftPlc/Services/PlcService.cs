@@ -35,7 +35,7 @@ namespace SoftPlc.Services
 			serverRunning = error == 0;
 			if (serverRunning) Console.WriteLine($"plc server started on port {usedPlcPort}!");
 			else Console.WriteLine($"plc server error {error}");
-            //ReadDataBlocks();
+            ReadDataBlocks();
 		}
 
 		private void CheckServerRunning()
@@ -74,21 +74,24 @@ namespace SoftPlc.Services
 		private string GetSaveLocation()
 		{
             try
-			{
-				return Environment.GetEnvironmentVariable("DATA_PATH");
-			}
+            {
+	            var dataPath = Environment.GetEnvironmentVariable(Constants.EnvironmentVariables.DataPath);
+				if(!string.IsNullOrEmpty(dataPath))
+					return dataPath;
+            }
 			catch(Exception e)
 			{
                 Console.WriteLine($"Error during retrieving env variable DATA_PATH {e.Message}");
-				return string.Empty;
 			}
+			var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
+			return Path.GetDirectoryName(location);
 		}
 
 		private void ReleaseUnmanagedResources()
 		{
 			Console.WriteLine("Stopping plc server...");
 			server.Stop();
-            //SaveDataBlocks();
+            SaveDataBlocks();
 		}
 
 		public void Dispose()
