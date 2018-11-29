@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using SoftPlc.Interfaces;
@@ -13,7 +14,8 @@ namespace SoftPlc.Services
 	{
 		private readonly S7Server server;
 		private readonly bool serverRunning;
-		private readonly Dictionary<int, DatablockDescription> datablocks = new Dictionary<int, DatablockDescription>();
+		private readonly string datablockFilename = "datablocks.json";
+		private readonly ConcurrentDictionary<int, DatablockDescription> datablocks = new ConcurrentDictionary<int, DatablockDescription>();
 		public PlcService(IConfiguration configuration)
 		{
 			Console.WriteLine("Initializing plc service...");
@@ -43,9 +45,9 @@ namespace SoftPlc.Services
 			if(!serverRunning) throw new Exception("Plc server is not running");
 		}
 
-		private void SaveDataBlocks()
+		public void SaveDatablocks()
 		{
-			var settingsFile = Path.Combine(GetSaveLocation(), "datablocks.json");
+			var settingsFile = Path.Combine(GetSaveLocation(), datablockFilename);
             var json = JsonConvert.SerializeObject(datablocks, Formatting.Indented);
 			File.WriteAllText(settingsFile, json);
 		}
@@ -87,22 +89,22 @@ namespace SoftPlc.Services
 			return Path.GetDirectoryName(location);
 		}
 
-		private void ReleaseUnmanagedResources()
+		private void ReleaseUnmanagedResourcesAndSaveDatablocks()
 		{
 			Console.WriteLine("Stopping plc server...");
 			server.Stop();
-            SaveDataBlocks();
+            SaveDatablocks();
 		}
 
 		public void Dispose()
 		{
-			ReleaseUnmanagedResources();
+			ReleaseUnmanagedResourcesAndSaveDatablocks();
 			GC.SuppressFinalize(this);
 		}
 
 		~PlcService()
 		{
-			ReleaseUnmanagedResources();
+			ReleaseUnmanagedResourcesAndSaveDatablocks();
 		}
 
 		public IEnumerable<DatablockDescription> GetDatablocksInfo()
@@ -120,7 +122,7 @@ namespace SoftPlc.Services
 			throw new InvalidOperationException("Datablock not found");
 		}
 
-		public void AddDatablock(int id, DatablockDescription datablock)
+		private void AddDatablock(int id, DatablockDescription datablock)
 		{
 			AddDatablock(id, datablock.Size);
 			UpdateDatablockData(id, datablock.Data);
@@ -133,7 +135,7 @@ namespace SoftPlc.Services
 			if (size < 1) throw new ArgumentException("Invalid size for datablock - size must be > 1", nameof(size));
 			if (datablocks.ContainsKey(id)) throw new InvalidOperationException($"A Datablock with id = {id} already exists");
 			var db = new DatablockDescription(id, size);
-			datablocks[id] = db;
+			while(!datablocks.TryAdd(id, db)){ }
 			server.RegisterArea(S7Server.srvAreaDB, id, ref datablocks[id].Data, datablocks[id].Data.Length);
 		}
 
@@ -147,7 +149,8 @@ namespace SoftPlc.Services
 		public void RemoveDatablock(int id)
 		{
 			server.UnregisterArea(S7Server.srvAreaDB, id);
-			datablocks.Remove(id);
+			DatablockDescription datablock;
+			while (!datablocks.TryRemove(id, out datablock)) { }
 		}
 	}
 }

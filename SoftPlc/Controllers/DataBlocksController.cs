@@ -50,6 +50,7 @@ namespace SoftPlc.Controllers
         public void Post(int id, int size)
         {
 	        plcService.AddDatablock(id, size);
+			plcService.SaveDatablocks();
         }
 		/// <summary>
 		/// Update the content of a datablock

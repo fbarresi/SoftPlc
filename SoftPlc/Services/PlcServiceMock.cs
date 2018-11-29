@@ -36,7 +36,12 @@ namespace SoftPlc.Services
 			throw new System.NotImplementedException();
 		}
 
-        public void AddDatablock(int id, DatablockDescription datablock)
+		public void SaveDatablocks()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void AddDatablock(int id, DatablockDescription datablock)
         {
             throw new System.NotImplementedException();
         }
