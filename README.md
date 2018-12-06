@@ -1,4 +1,4 @@
-# SoftPlc [![Build Status](https://travis-ci.org/fbarresi/SoftPlc.svg?branch=master)](https://travis-ci.org/fbarresi/SoftPlc) [![Build status](https://ci.appveyor.com/api/projects/status/bl05dyhpr3ah76y3?svg=true)](https://ci.appveyor.com/project/fbarresi/softplc)
+# SoftPlc [![Build Status](https://travis-ci.org/fbarresi/SoftPlc.svg?branch=master)](https://travis-ci.org/fbarresi/SoftPlc) [![Build status](https://ci.appveyor.com/api/projects/status/bl05dyhpr3ah76y3?svg=true)](https://ci.appveyor.com/project/fbarresi/softplc) [![Docker Pulls](https://img.shields.io/docker/pulls/fbarresi/softplc.svg)](https://hub.docker.com/r/fbarresi/softplc/)
 Software PLC controlled over Web API
 
 **How often did you need a PLC for testing, but you had none?**
@@ -27,7 +27,7 @@ dotnet SoftPlc.dll --plcPort=103 --urls="http://localhost:8080/"
 ```
 
 ### Use it with docker
-Pull the actual docker image for your platform [see available tags](https://hub.docker.com/r/fbarresi/softplc/tags/) and run it with the correct port binding
+Pull the actual docker image for your platform [see available tags](https://hub.docker.com/r/fbarresi/softplc/tags/) and run it with the correct port binding. (Brand new MOBY support is included! Just select latest-win1809 tag.)
 
 ```docker
 docker pull fbarresi/softplc:latest-linux

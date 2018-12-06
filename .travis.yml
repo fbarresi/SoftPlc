@@ -18,21 +18,21 @@ script:
   - cp ./native/linux/libsnap7.so ./release/libsnap7.so
   - cp ./Docker/linux-x64/Dockerfile ./release/Dockerfile
   - cd release
-  - docker build -t fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-linux .
+  - docker build -t fbarresi/softplc:1.1.$TRAVIS_BUILD_NUMBER-linux .
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - cd ..
   - dotnet publish -c release -o release_arm -r linux-arm
   - cp ./native/arm/libsnap7.so ./release_arm/libsnap7.so
   - cp ./Docker/arm/Dockerfile ./release_arm/Dockerfile
   - cd release_arm
-  - docker build -t fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-arm .
+  - docker build -t fbarresi/softplc:1.1.$TRAVIS_BUILD_NUMBER-arm .
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - docker push fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-linux;
-  - docker tag fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-linux fbarresi/softplc:latest-linux;
+  - docker push fbarresi/softplc:1.1.$TRAVIS_BUILD_NUMBER-linux;
+  - docker tag fbarresi/softplc:1.1.$TRAVIS_BUILD_NUMBER-linux fbarresi/softplc:latest-linux;
   - docker push fbarresi/softplc:latest-linux;
-  - docker push fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-arm;
-  - docker tag fbarresi/softplc:1.0.$TRAVIS_BUILD_NUMBER-arm fbarresi/softplc:latest-arm;
+  - docker push fbarresi/softplc:1.1.$TRAVIS_BUILD_NUMBER-arm;
+  - docker tag fbarresi/softplc:1.1.$TRAVIS_BUILD_NUMBER-arm fbarresi/softplc:latest-arm;
   - docker push fbarresi/softplc:latest-arm;
 
 
