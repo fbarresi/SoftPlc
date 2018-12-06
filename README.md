@@ -46,7 +46,7 @@ Now you have:
 
 ### Do you also need a PLC Client in your application?
 
-Check my other repository [Sharp7](https://github.com/fbarresi/Sharp7)
+Check my other repository [Sharp7](https://github.com/fbarresi/Sharp7) or [Sharp7Reactive](https://github.com/evopro-ag/Sharp7Reactive)
 
 
 ## Contribute
