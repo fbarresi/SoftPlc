@@ -57,6 +57,8 @@ namespace SoftPlc
 		        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 		        c.IncludeXmlComments(xmlPath);
 			});
+			
+			services.AddCors();
 
 			services.AddMvc();
         }
@@ -78,6 +80,8 @@ namespace SoftPlc
 	        {
 		        c.SwaggerEndpoint("/swagger/v1/swagger.json", "SoftPlc API V1");
 	        });
+
+			app.UseCors(options => options.AllowAnyOrigin());
 
 			app.UseMvc();
 
