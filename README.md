@@ -14,8 +14,8 @@ Build and Start the software (don't forget to copy the native library you need)
 cd SoftPlc
 dotnet restore
 dotnet build
-cp native\win\snap7.dll bin\Debug\netcoreapp2.0\snap7.dll
-dotnet bin\Debug\netcoreapp2.0\SoftPlc.dll --plcPort=103 --urls="http://localhost:8080/"
+cp native\win\snap7.dll bin\x64\Debug\net6.0\snap7.dll
+dotnet bin\Debug\netcoreapp2.0\SoftPlc.dll --plcPort=102 --urls="http://localhost:8080/"
 ```
 
 Otherwise you can download and start the [latest release](https://github.com/fbarresi/SoftPlc/releases/latest) (i.e. with Powershell).
@@ -23,22 +23,21 @@ Otherwise you can download and start the [latest release](https://github.com/fba
 ```shell 
 Expand-Archive softplc1.0.41-amd64.zip.zip -DestinationPath c:/temp/softplc
 cd c:/temp/softplc/
-dotnet SoftPlc.dll --plcPort=103 --urls="http://localhost:8080/"
+dotnet SoftPlc.dll --plcPort=102 --urls="http://localhost:8080/"
 ```
 
 ### Use it with docker
 Pull the actual docker image for your platform [see available tags](https://hub.docker.com/r/fbarresi/softplc/tags/) and run it with the correct port binding. (Brand new MOBY support is included! Just select latest-win1809 tag.)
 
 ```docker
-docker pull fbarresi/softplc:latest-linux
-docker run -p 8080:80 -p 102:102 --name softplc fbarresi/softplc:latest-linux
+docker run -p 8080:80 -p 8443:443 -p 102:102 --name softplc fbarresi/softplc:latest-linux
 ```
 
 Now you have:
 
 - a Simulated PLC listening at port 102 ([see ISO-over-TCP protocol](https://tools.ietf.org/html/rfc1006))
 
-- an API listening at http://localhost:8080/  (with Swagger included under http://localhost:8080/swagger ) in which you can __add__, __read__, __modify__ and __delete__ as many datablocks as you want
+- an API listening at http://localhost:8080/  (with Swagger included under http://localhost:8080/ ) in which you can __add__, __read__, __modify__ and __delete__ as many datablocks as you want
 
 
 ![SoftPlc API](https://github.com/fbarresi/SoftPlc/raw/master/img/SoftPlc_API.png "Api")
