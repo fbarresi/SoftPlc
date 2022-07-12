@@ -16,6 +16,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Change wd
       run: cd SoftPlc
+    - name: Change wd
+      run: ls -l
     - name: Build Docker linux
       run: docker build -f Docker/linux-x64/Dockerfile -t fbarresi/softplc:latest-linux .
     - name: Build Docker arm
