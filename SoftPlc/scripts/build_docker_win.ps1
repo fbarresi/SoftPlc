@@ -1,3 +1,3 @@
-dotnet publish -c release -o release-win
+#dotnet publish -c release -o release-win
 
-docker build -f .\Docker\windows-nano\Dockerfile -t fbarresi/softplc:latest .
+docker build -f .\Docker\windows\Dockerfile -t fbarresi/softplc:latest .

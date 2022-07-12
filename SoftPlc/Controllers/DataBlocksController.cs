@@ -9,6 +9,7 @@ using SoftPlc.Models;
 namespace SoftPlc.Controllers
 {
 	/// <inheritdoc />
+	[ApiController]
 	[Route("api/[controller]")]
 	public class DataBlocksController : Controller
     {

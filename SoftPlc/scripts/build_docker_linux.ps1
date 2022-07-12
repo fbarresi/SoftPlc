@@ -1,4 +1,4 @@
-dotnet publish -c release /p:DefineConstants=__MonoCS__ -o release_linux
+#dotnet publish -c release /p:DefineConstants=__MonoCS__ -o release_linux
 
 docker build -f .\Docker\linux-x64\Dockerfile -t fbarresi/softplc:latest-linux .
 

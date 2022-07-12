@@ -1,30 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.OpenApi.Models;
+using SoftPlc.Interfaces;
+using SoftPlc.Services;
 
-namespace SoftPlc
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddSingleton<IPlcService, PlcService>();
+builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
 {
-    public class Program
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
-        public static void Main(string[] args)
+        Version = "v1",
+        Title = "SoftPlc API",
+        Description = "REST API to SoftPlc",
+        Contact = new OpenApiContact
         {
-            BuildWebHost(args).Run();
+            Name = "Federico Barresi",
+            Email = string.Empty,
+            Url = new Uri("https://github.com/fbarresi/SoftPlc")
+        },
+        License = new OpenApiLicense()
+        {
+            Name = "MIT",
+            Url = new Uri("https://github.com/fbarresi/SoftPlc/blob/master/LICENSE")
         }
+    });
+});
+var app = builder.Build();
 
-        public static IWebHost BuildWebHost(string[] args) 
-        {
-            var configuration = new ConfigurationBuilder().AddCommandLine(args).Build();
-            
-            return WebHost.CreateDefaultBuilder(args)
-                .UseConfiguration(configuration)
-                .UseStartup<Startup>()
-                .Build();
-        }
-    }
-}
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SoftPlc API V1");
+    c.RoutePrefix = "";
+});
+
+app.UseCors(options => options.AllowAnyOrigin());
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+var plcService = app.Services.GetService<IPlcService>();
+
+app.Run();
