@@ -9,7 +9,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore "SoftPlc/SoftPlc.csproj"
+RUN dotnet restore "SoftPlc.csproj"
 COPY . .
 WORKDIR "/src/SoftPlc"
 RUN dotnet build "SoftPlc.csproj" -c Release -o /app/build
