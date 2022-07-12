@@ -15,11 +15,36 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build Docker linux
-      run: docker build -f Docker/linux-x64/Dockerfile -t fbarresi/softplc:latest-linux .
+      run: |
+        docker build -f Docker/linux-x64/Dockerfile -t fbarresi/softplc:1.2.${{ github.run_number }}-linux .
+        docker tag fbarresi/softplc:1.2.${{ github.run_number }}-linux fbarresi/softplc:latest-linux
       working-directory: ./SoftPlc
     - name: Build Docker arm
-      run: docker build -f Docker/arm/Dockerfile -t fbarresi/softplc:latest-arm .
+      run: |
+        docker build -f Docker/arm/Dockerfile -t fbarresi/softplc:1.2.${{ github.run_number }}-arm .
+        docker tag fbarresi/softplc:1.2.${{ github.run_number }}-arm fbarresi/softplc:latest-arm
       working-directory: ./SoftPlc
     - name: Build Docker windows
-      run: docker build -f Docker/windows/Dockerfile -t fbarresi/softplc:latest-win .
+      run: |
+        docker build -f Docker/windows/Dockerfile -t fbarresi/softplc:1.2.${{ github.run_number }}-win .
+        docker tag fbarresi/softplc:1.2.${{ github.run_number }}-win fbarresi/softplc:latest-win
       working-directory: ./SoftPlc
+    - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      with:
+        images: fbarresi/softplc
+    
+    - name: Build and push Docker image
+      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
