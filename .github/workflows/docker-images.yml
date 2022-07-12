@@ -17,8 +17,8 @@ jobs:
     - name: Change wd
       run: cd SoftPlc
     - name: Build Docker linux
-      run: docker build . --file ./Docker/linux-x64/Dockerfile --tag fbarresi/softplc:latest-linux
+      run: docker build -f Docker/linux-x64/Dockerfile -t fbarresi/softplc:latest-linux .
     - name: Build Docker arm
-      run: docker build . --file ./Docker/arm/Dockerfile --tag fbarresi/softplc:latest-arm
+      run: docker build -f Docker/arm/Dockerfile -t fbarresi/softplc:latest-arm .
     - name: Build Docker windows
-      run: docker build . --file ./Docker/windows/Dockerfile --tag fbarresi/softplc:latest-win
+      run: docker build -f Docker/windows/Dockerfile -t fbarresi/softplc:latest-win .
