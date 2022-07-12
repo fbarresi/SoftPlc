@@ -38,4 +38,14 @@ jobs:
         docker push fbarresi/softplc:1.2.${{ github.run_number }}-win
         docker push fbarresi/softplc:latest-win
       working-directory: ./SoftPlc
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: 1.2.${{ github.run_number }}
+        release_name: 1.2.${{ github.run_number }}
+        draft: false
+        prerelease: false
     

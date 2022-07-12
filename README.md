@@ -7,7 +7,7 @@ This project aim to **end you pain** with test against PLC!
 
 ## How does it works
 
-### Use it from source code or binary 
+### Use it from source code 
 Build and Start the software (don't forget to copy the native library you need)
 
 ```shell
@@ -16,14 +16,6 @@ dotnet restore
 dotnet build
 cp native\win\snap7.dll bin\x64\Debug\net6.0\snap7.dll
 dotnet bin\Debug\netcoreapp2.0\SoftPlc.dll --plcPort=102 --urls="http://localhost:8080/"
-```
-
-Otherwise you can download and start the [latest release](https://github.com/fbarresi/SoftPlc/releases/latest) (i.e. with Powershell).
-
-```shell 
-Expand-Archive softplc1.0.41-amd64.zip.zip -DestinationPath c:/temp/softplc
-cd c:/temp/softplc/
-dotnet SoftPlc.dll --plcPort=102 --urls="http://localhost:8080/"
 ```
 
 ### Use it with docker
