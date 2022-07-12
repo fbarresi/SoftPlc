@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master", "develop" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Change wd
+      run: cd SoftPlc
+    - uses: actions/checkout@v3
+    - name: Build Docker linux
+      run: docker build . --file .\Docker\linux-x64\Dockerfile --tag fbarresi/softplc:latest-linux
+    - name: Build Docker arm
+      run: docker build . --file .\Docker\arm\Dockerfile --tag fbarresi/softplc:latest-arm
+    - name: Build Docker windows
+      run: docker build . --file .\Docker\windows\Dockerfile --tag fbarresi/softplc:latest-win
