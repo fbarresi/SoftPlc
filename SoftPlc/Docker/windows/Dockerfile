@@ -11,7 +11,6 @@ WORKDIR /src
 COPY . .
 RUN dotnet restore "SoftPlc.csproj"
 COPY . .
-WORKDIR "/src/SoftPlc"
 RUN dotnet build "SoftPlc.csproj" -c Release -o /app/build
 
 FROM build AS publish
