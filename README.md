@@ -1,4 +1,4 @@
-# SoftPlc [![Build Status](https://travis-ci.org/fbarresi/SoftPlc.svg?branch=master)](https://travis-ci.org/fbarresi/SoftPlc) [![Build status](https://ci.appveyor.com/api/projects/status/bl05dyhpr3ah76y3?svg=true)](https://ci.appveyor.com/project/fbarresi/softplc) [![Docker Pulls](https://img.shields.io/docker/pulls/fbarresi/softplc.svg)](https://hub.docker.com/r/fbarresi/softplc/)
+# SoftPlc [![Docker Image CI](https://github.com/fbarresi/SoftPlc/actions/workflows/docker-images.yml/badge.svg)](https://github.com/fbarresi/SoftPlc/actions/workflows/docker-images.yml) [![Docker Pulls](https://img.shields.io/docker/pulls/fbarresi/softplc.svg)](https://hub.docker.com/r/fbarresi/softplc/)
 Software PLC controlled over Web API
 
 **How often did you need a PLC for testing, but you had none?**
