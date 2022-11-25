@@ -20,4 +20,5 @@ COPY ["/native/arm/libsnap7.so", "/app/publish/"]
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY ["/demodata/datablocks.json", "/demodata/"]
 ENTRYPOINT ["dotnet", "SoftPlc.dll"]

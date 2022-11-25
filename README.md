@@ -28,6 +28,7 @@ docker run -p 8080:80 -p 8443:443 -p 102:102 --name softplc fbarresi/softplc:lat
 Now you have:
 
 - a Simulated PLC listening at port 102 ([see ISO-over-TCP protocol](https://tools.ietf.org/html/rfc1006))
+  - by default, it starts without any data. If you need some preset data you can add `-e DATA_PATH=/demodata` to start with a single 2048 byte DataBlock. The data content is described [here](SoftPlc/demodata/README.md).
 
 - an API listening at http://localhost:8080/  (with Swagger included under http://localhost:8080/ ) in which you can __add__, __read__, __modify__ and __delete__ as many datablocks as you want
 
