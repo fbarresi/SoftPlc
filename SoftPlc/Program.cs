@@ -35,6 +35,7 @@ app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "SoftPlc API V1");
     c.RoutePrefix = "";
+    c.EnableTryItOutByDefault();
 });
 
 app.UseCors(options => options.AllowAnyOrigin());
