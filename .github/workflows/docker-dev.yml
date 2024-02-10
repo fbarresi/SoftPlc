@@ -23,17 +23,17 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build Docker linux
       run: |
-        docker build -f Docker/linux-x64/Dockerfile -t fbarresi/softplc:1.2.${{ github.run_number }}-beta-linux .
-        docker push fbarresi/softplc:1.2.${{ github.run_number }}-beta-linux 
+        docker build -f Docker/linux-x64/Dockerfile -t fbarresi/softplc:1.2-beta${{ github.run_number }}-linux .
+        docker push fbarresi/softplc:1.2-beta${{ github.run_number }}-linux 
       working-directory: ./SoftPlc
     - name: Build Docker arm
       run: |
-        docker build -f Docker/arm/Dockerfile -t fbarresi/softplc:1.2.${{ github.run_number }}-beta-arm .
-        docker push fbarresi/softplc:1.2.${{ github.run_number }}-beta-arm
+        docker build -f Docker/arm/Dockerfile -t fbarresi/softplc:1.2-beta${{ github.run_number }}-arm .
+        docker push fbarresi/softplc:1.2-beta${{ github.run_number }}-arm
       working-directory: ./SoftPlc
     - name: Build Docker windows
       run: |
-        docker build -f Docker/windows/Dockerfile -t fbarresi/softplc:1.2.${{ github.run_number }}-beta-win .
-        docker push fbarresi/softplc:1.2.${{ github.run_number }}-beta-win
+        docker build -f Docker/windows/Dockerfile -t fbarresi/softplc:1.2-beta${{ github.run_number }}-win .
+        docker push fbarresi/softplc:1.2-beta${{ github.run_number }}-win
       working-directory: ./SoftPlc
     
