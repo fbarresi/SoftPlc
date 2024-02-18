@@ -117,6 +117,8 @@ namespace SoftPlc.Services
 		public DatablockDescription GetDatablock(int id)
 		{
 			CheckServerRunning();
+            DbOutOfRangeException.ThrowIfInvalid(id);
+
             if (datablocks.TryGetValue(id, out var db)) 
                 return db;
 			else
@@ -132,8 +134,9 @@ namespace SoftPlc.Services
 		public void AddDatablock(int id, int size)
 		{
 			CheckServerRunning();
-			if (id < 1) throw new ArgumentException("Invalid id for datablock - id must be > 1", nameof(id));
-			if (size < 1) throw new ArgumentException("Invalid size for datablock - size must be > 1", nameof(size));
+            DbOutOfRangeException.ThrowIfInvalid(id);
+
+            if (size < 1) throw new ArgumentException("Invalid size for datablock - size must be > 1", nameof(size));
 			if (datablocks.ContainsKey(id)) throw new InvalidOperationException($"A Datablock with id = {id} already exists");
 			var db = new DatablockDescription(id, size);
 			while(!datablocks.TryAdd(id, db)){ }
@@ -142,6 +145,8 @@ namespace SoftPlc.Services
 
 		public void UpdateDatablockData(int id, byte[] data)
 		{
+            DbOutOfRangeException.ThrowIfInvalid(id);
+            
             if (!datablocks.TryGetValue(id, out var db))
                 throw new DbNotFoundException(id);
 
@@ -152,6 +157,8 @@ namespace SoftPlc.Services
 
 		public void RemoveDatablock(int id)
 		{
+            DbOutOfRangeException.ThrowIfInvalid(id);
+
             if (datablocks.TryRemove(id, out _))
                 server.UnregisterArea(S7Server.srvAreaDB, id);
             else
