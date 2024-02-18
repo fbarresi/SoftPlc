@@ -135,11 +135,12 @@ namespace SoftPlc.Services
 		{
 			CheckServerRunning();
             DbOutOfRangeException.ThrowIfInvalid(id);
+            InvalidDbSizeException.ThrowIfInvalid(size);
 
-            if (size < 1) throw new ArgumentException("Invalid size for datablock - size must be > 1", nameof(size));
-			if (datablocks.ContainsKey(id)) throw new InvalidOperationException($"A Datablock with id = {id} already exists");
 			var db = new DatablockDescription(id, size);
-			while(!datablocks.TryAdd(id, db)){ }
+			if (!datablocks.TryAdd(id, db))
+                throw new DbExistsException(id);
+
 			server.RegisterArea(S7Server.srvAreaDB, id, ref datablocks[id].Data, datablocks[id].Data.Length);
 		}
 
@@ -150,9 +151,10 @@ namespace SoftPlc.Services
             if (!datablocks.TryGetValue(id, out var db))
                 throw new DbNotFoundException(id);
 
-			if (data != null && data.Length > db.Data.Length) throw new ArgumentException("Too much data as expected", nameof(data));
-			if(data != null)
-				Array.Copy(data, datablocks[id].Data, data.Length);
+			if (data.Length > db.Data.Length) 
+                throw new DateExceedsDbLengthException(id, db.Data.Length, data.Length);
+
+			Array.Copy(data, datablocks[id].Data, data.Length);
 		}
 
 		public void RemoveDatablock(int id)
