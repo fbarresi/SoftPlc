@@ -120,7 +120,7 @@ namespace SoftPlc.Services
             if (datablocks.TryGetValue(id, out var db)) 
                 return db;
 			else
-			    throw new DbNotFoundException($"DB {id} not found.", id);
+			    throw new DbNotFoundException(id);
 		}
 
 		private void AddDatablock(int id, DatablockDescription datablock)
@@ -142,16 +142,20 @@ namespace SoftPlc.Services
 
 		public void UpdateDatablockData(int id, byte[] data)
 		{
-			if (data != null && data.Length > datablocks[id].Data.Length) throw new ArgumentException("Too much data as expected", nameof(data));
+            if (!datablocks.TryGetValue(id, out var db))
+                throw new DbNotFoundException(id);
+
+			if (data != null && data.Length > db.Data.Length) throw new ArgumentException("Too much data as expected", nameof(data));
 			if(data != null)
 				Array.Copy(data, datablocks[id].Data, data.Length);
 		}
 
 		public void RemoveDatablock(int id)
 		{
-			server.UnregisterArea(S7Server.srvAreaDB, id);
-			DatablockDescription datablock;
-            datablocks.TryRemove(id, out datablock);
+            if (datablocks.TryRemove(id, out _))
+                server.UnregisterArea(S7Server.srvAreaDB, id);
+            else
+                throw new DbNotFoundException(id);
         }
 	}
 }
