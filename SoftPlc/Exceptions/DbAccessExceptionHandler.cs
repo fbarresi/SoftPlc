@@ -15,7 +15,7 @@ public class DbAccessExceptionHandler : IExceptionHandler
             var problemDetails = new ProblemDetails
             {
                 Status = StatusCodes.Status404NotFound,
-                Title = "DB found",
+                Title = "DB not found",
                 Detail = dbNotFound.Message
             };
 
