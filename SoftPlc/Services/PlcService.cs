@@ -151,7 +151,7 @@ namespace SoftPlc.Services
 		{
 			server.UnregisterArea(S7Server.srvAreaDB, id);
 			DatablockDescription datablock;
-			while (!datablocks.TryRemove(id, out datablock)) { }
-		}
+            datablocks.TryRemove(id, out datablock);
+        }
 	}
 }
