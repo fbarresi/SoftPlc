@@ -10,37 +10,20 @@ public class DbAccessExceptionHandler : IExceptionHandler
         Exception exception,
         CancellationToken cancellationToken)
     {
-        if (exception is DbNotFoundException dbNotFound)
-        {
-            var problemDetails = new ProblemDetails
+        if (exception is not DbAccessException dbAccessException)
+            return false;
+
+        var problemDetails =
+            new ProblemDetails
             {
-                Status = StatusCodes.Status404NotFound,
-                Title = "DB not found",
-                Detail = dbNotFound.Message
+                Status = dbAccessException.StatusCode,
+                Title = dbAccessException.Title,
+                Detail = dbAccessException.Message
             };
 
-            httpContext.Response.StatusCode = problemDetails.Status.Value;
+        httpContext.Response.StatusCode = problemDetails.Status.Value;
 
-            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
-            return true;
-        }
-
-        if (exception is DbOutOfRangeException outOfRange)
-        {
-            var problemDetails = new ProblemDetails
-            {
-                Status = StatusCodes.Status400BadRequest,
-                Title = "DB out of range",
-                Detail = outOfRange.Message
-            };
-
-            httpContext.Response.StatusCode = problemDetails.Status.Value;
-
-            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
-            return true;
-        }
-
-
-        return false;
+        await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+        return true;
     }
 }
