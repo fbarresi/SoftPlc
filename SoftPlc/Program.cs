@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using SoftPlc.Exceptions;
 using SoftPlc.Interfaces;
 using SoftPlc.Services;
 
@@ -28,6 +29,9 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddExceptionHandler<DbAccessExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -44,6 +48,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseExceptionHandler();
 app.MapControllers();
 
 var plcService = app.Services.GetService<IPlcService>();

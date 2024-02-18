@@ -7,6 +7,7 @@ using SoftPlc.Models;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Newtonsoft.Json;
+using SoftPlc.Exceptions;
 
 namespace SoftPlc.Services
 {
@@ -116,10 +117,10 @@ namespace SoftPlc.Services
 		public DatablockDescription GetDatablock(int id)
 		{
 			CheckServerRunning();
-			DatablockDescription db;
-			var found = datablocks.TryGetValue(id, out db);
-			if (found) return db;
-			throw new InvalidOperationException("Datablock not found");
+            if (datablocks.TryGetValue(id, out var db)) 
+                return db;
+			else
+			    throw new DbNotFoundException($"DB {id} not found.", id);
 		}
 
 		private void AddDatablock(int id, DatablockDescription datablock)
