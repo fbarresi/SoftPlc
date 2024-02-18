@@ -25,6 +25,21 @@ public class DbAccessExceptionHandler : IExceptionHandler
             return true;
         }
 
+        if (exception is DbOutOfRangeException outOfRange)
+        {
+            var problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = "DB out of range",
+                Detail = outOfRange.Message
+            };
+
+            httpContext.Response.StatusCode = problemDetails.Status.Value;
+
+            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+            return true;
+        }
+
 
         return false;
     }
