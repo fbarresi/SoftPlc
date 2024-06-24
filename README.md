@@ -22,7 +22,7 @@ dotnet bin\Debug\netcoreapp2.0\SoftPlc.dll --plcPort=102 --urls="http://localhos
 Pull the actual docker image for your platform [see available tags](https://hub.docker.com/r/fbarresi/softplc/tags/) and run it with the correct port binding. (Brand new MOBY support is included! Just select latest-win1809 tag.)
 
 ```docker
-docker run -p 8080:80 -p 8443:443 -p 102:102 --name softplc fbarresi/softplc:latest-linux
+docker run -p 8080:8080 -p 8443:443 -p 102:102 --name softplc fbarresi/softplc:latest-linux
 ```
 
 Now you have:
