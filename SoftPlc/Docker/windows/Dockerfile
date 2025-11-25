@@ -3,7 +3,7 @@ WORKDIR /app
 VOLUME C:\\data
 ENV DATA_PATH=C:\\data
 EXPOSE 102
-EXPOSE 80
+EXPOSE 8080
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
